@@ -34,4 +34,4 @@ parameters to pass to the `scp` executable.
 2. Configurable `scp` path (needed for win32 support, I think)
 3. Better error handling
 
-![demo](demo.gif)
+![demo](http://f.cl.ly/items/0s473W0f3V3s0y1p0O07/demo.gif)
