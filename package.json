@@ -1,10 +1,11 @@
 {
   "name": "secure-copy",
   "main": "./lib/secure-copy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Upload files to a remote server using scp",
   "activationEvents": [
-    "secure-copy:upload-git-changed", "secure-copy:upload-current-file"
+    "secure-copy:upload-git-changed",
+    "secure-copy:upload-current-file"
   ],
   "repository": "https://github.com/kmorey/secure-copy",
   "license": "MIT",
