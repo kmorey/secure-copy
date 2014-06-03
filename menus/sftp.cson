@@ -1,0 +1,18 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Upload Current File': 'secure-copy:upload-current-file'
+      'Upload Git Changed Files': 'secure-copy:upload-git-changed'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Secure Copy',
+      'submenu': [
+        { 'label': 'Upload Current File', 'command': 'secure-copy:upload-current-file' }
+        { 'label': 'Upload Git Changed Files', 'command': 'secure-copy:upload-git-changed' }
+      ]
+    ]
+  }
+]
