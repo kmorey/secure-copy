@@ -17,6 +17,6 @@
     "atom-message-panel": ">=1.0.0",
     "byline": "4.1.1",
     "fs-plus": "2.x",
-    "git-utils": "1.4.0"
+    "git-utils": "2.1.4"
   }
 }
