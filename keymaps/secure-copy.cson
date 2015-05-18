@@ -7,10 +7,10 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
-'.platform-darwin .workspace':
+'.platform-darwin .atom-workspace':
   'cmd-shift-u': 'secure-copy:upload-current-file'
   'cmd-shift-v': 'secure-copy:upload-git-changed'
 
-'.platform-win32 .workspace, .platform-linux .workspace':
+'.platform-win32 .atom-workspace, .platform-linux .atom-workspace':
   'ctrl-shift-u': 'secure-copy:upload-current-file'
   'ctrl-shift-v': 'secure-copy:upload-git-changed'
