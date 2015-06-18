@@ -8,8 +8,10 @@ git = require 'git-utils'
 
 module.exports =
   activate: ->
-    atom.workspaceView.command "secure-copy:upload-current-file", => @upload_current_file()
-    atom.workspaceView.command "secure-copy:upload-git-changed", => @upload_git_changed()
+    atom.commands.add "atom-text-editor",
+      "secure-copy:upload-current-file": => @upload_current_file()
+    atom.commands.add "atom-text-editor",
+      "secure-copy:upload-git-changed": => @upload_git_changed()
 
     @messages = new MessagePanelView title: '<span class="icon-terminal"></span> Secure Copy', rawTitle: true
 
@@ -21,6 +23,8 @@ module.exports =
 
     if dirname != "/"
       return dirname
+
+    @messages.add new PlainMessageView message: "No sftp-config.json found. Check the README.", className: "text-warning"
     return null
 
   read_config: (filename) ->
@@ -40,8 +44,12 @@ module.exports =
     @messages.summary.html message
 
   do_upload: (config, localFile, remoteFile, callback) ->
+    # TODO: mkdir -p the destination first
     cmd = "/usr/bin/scp"
-    params = [localFile, "#{config.user}@#{config.host}:#{remoteFile}"]
+    if config.host
+      params = [localFile, "#{config.user}@#{config.host}:#{remoteFile}"]
+    else:
+      params = [localFile, remoteFile]
     proc = process.spawn cmd, params
     all_output = []
     output = byline(proc.stderr)
@@ -80,7 +88,7 @@ module.exports =
   upload_current_file: ->
     @messages.show()
     @messages.attach()
-    @upload [atom.workspace.getActiveEditor().getUri()]
+    @upload [atom.workspace.getActiveTextEditor().getPath()]
 
   upload: (filesToUpload) ->
     @processFiles(filesToUpload)
@@ -89,8 +97,8 @@ module.exports =
     @messages.show()
     @messages.attach()
 
-    repo = atom.project.getRepo()
-    if repo
+    repos = atom.project.getRepositories()
+    for idx, repo of repos
       toUpload = []
       repo = git.open(repo.getWorkingDirectory())
       for filePath, status of repo.getStatus()
@@ -110,6 +118,6 @@ module.exports =
         @messages.add new PlainMessageView message: "No files to upload.", className: "text-warning"
         @hideMessages()
 
-    else
-      @messages.add new PlainMessageView message: "No git repo for the current project.", className: "text-warning"
+    if not repos.length
+      @messages.add new PlainMessageView message: "No git repos for the current project.", className: "text-warning"
       @hideMessages()
