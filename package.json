@@ -1,7 +1,7 @@
 {
   "name": "secure-copy",
   "main": "./lib/secure-copy",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Upload files to a remote server using scp",
   "activationCommands": {
     "atom-text-editor": [
